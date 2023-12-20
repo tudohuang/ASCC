@@ -1,0 +1,34 @@
+name: Build Python to EXE
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-exe:
+    name: Build EXE from Python
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install PyInstaller
+      run: pip install pyinstaller Pillow moviepy numpy windows-curses
+
+
+    - name: Build Executable with PyInstaller
+      run: pyinstaller --onefile --clean ascc.py
+
+    - name: Upload Executable as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ascc-release
+        path: dist/tk22.exe
