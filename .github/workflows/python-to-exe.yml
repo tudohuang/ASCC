@@ -31,4 +31,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ascc-release
-        path: dist/tk22.exe
+        path: dist/ascc.exe
